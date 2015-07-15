@@ -121,12 +121,3 @@ function bmiDetect($data) {
 
     return false;
 }
-/*
-$bmiDatas = bmiExtract($text);
-if(bmiDetect($bmiDatas)) {
-    echo "YOLO";
-}
-else {
-    echo "PAS YOLO";
-}
-*/
