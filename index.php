@@ -1,7 +1,54 @@
 <?php
 error_reporting(E_ALL | E_STRICT);
 
-$text = $argv[1];
+$mode = $argv[1];
+
+if(empty($mode)) {
+    die('You have to choose a mode : -b (bruteforce) -i (input)');
+}
+else if($mode === '-b') {
+    $caracters = 'abcdefghijklmnopqrstuvwxyz';
+    $sub = '';
+    $i = 0;
+    $chut = 0;
+
+    do {
+        do {
+            for($j = 0; $j < 26; $j++) {
+                $text = $sub . $caracters{$j};
+                $bmiDatas = bmiExtract($text);
+                if(bmiDetect($bmiDatas)) {
+                    echo "YOLO : " . $text . PHP_EOL;
+                }
+            }
+
+            $sub.= $caracters{$i};
+            $i++;
+        } while(strlen($sub) < 26);
+
+        $caracters.=$caracters{0};
+        $caracters = substr($caracters,1);
+
+        $sub = '';
+        $i = 0;
+        $chut++;
+
+    } while($chut < 26);
+
+}
+else {
+    if(empty($argv[2])) {
+        die('You have to input a sentence');
+    }
+
+    $bmiDatas = bmiExtract($argv[2]);
+    if(bmiDetect($bmiDatas)) {
+        echo "YOLO";
+    }
+    else {
+        echo "PAS YOLO";
+    }
+}
 
 function bmiExtract($text) {
     $data = array(
@@ -74,7 +121,7 @@ function bmiDetect($data) {
 
     return false;
 }
-
+/*
 $bmiDatas = bmiExtract($text);
 if(bmiDetect($bmiDatas)) {
     echo "YOLO";
@@ -82,3 +129,4 @@ if(bmiDetect($bmiDatas)) {
 else {
     echo "PAS YOLO";
 }
+*/
